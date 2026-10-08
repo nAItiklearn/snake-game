@@ -18,6 +18,7 @@ class Snake:
     def move(self):
         body_copy = self.body[:-1] #copy the whole body except face
         body_copy.insert(0, self.body[0]+ self.direction)
+        self.body =body_copy
         
 class Fruit:
     def __init__(self):
@@ -42,11 +43,26 @@ surface = pygame.Surface((100, 200))
 surface.fill((0 , 0 , 225))
 fruit=Fruit()
 snake =Snake()
+
+SCREENUPDATE = pygame.USEREVENT
+pygame.time.set_timer(SCREENUPDATE, 150)
 rect1= surface.get_rect(center=(250 , 250))
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+        if event.type ==SCREENUPDATE:
+            snake.move()
+        if event.type ==pygame.KEYDOWN:
+            if event.key ==pygame.K_UP:
+                snake.direction=Vector2(0,-1)
+            if event.key ==pygame.K_DOWN:
+                snake.direction =Vector2(0,1)
+            if event.key == pygame.K_LEFT:
+                snake.direction = Vector2(-1,0)
+            if event.key == pygame.K_RIGHT:
+                snake.direction = Vector2(1,0)
+     
     screen.fill((175, 215, 60))
     # screen.blit(surface, rect1)
     fruit.draw_fruit()
