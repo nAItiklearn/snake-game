@@ -22,6 +22,8 @@ class Snake:
         
 class Fruit:
     def __init__(self):
+        self.randomzie()
+    def randomzie(self):
         self.x=random.randint(0,cell_number-1)
         self.y=random.randint(0,cell_number-1)
         self.pos =Vector2(self.x, self.y)
@@ -37,10 +39,15 @@ class main:
         
     def update(self):
         self.snake.move()
+        self.collision()
     
     def draw(self):
         self.fruit.draw_fruit()
         self.snake.draw_snake()
+        
+    def collision(self):
+        if self.fruit.pos== self.snake.body[0]:
+            self.fruit.randomzie()
     
       
        
@@ -66,7 +73,7 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
         if event.type ==SCREENUPDATE:
-            mainGame.snake.move()
+            mainGame.update()
         if event.type ==pygame.KEYDOWN:
             if event.key ==pygame.K_UP:
                 mainGame.snake.direction=Vector2(0,-1)
