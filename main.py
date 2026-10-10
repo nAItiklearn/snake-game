@@ -216,18 +216,25 @@ while True:
         if event.type ==SCREENUPDATE:
             mainGame.update()
         if event.type ==pygame.KEYDOWN:
-            if event.key ==pygame.K_UP:
-                if mainGame.snake.direction.y!=1:
-                 mainGame.snake.direction=Vector2(0,-1)
-            if event.key ==pygame.K_DOWN:
-                 if mainGame.snake.direction.y!=-1:
-                  mainGame.snake.direction =Vector2(0,1)
-            if event.key == pygame.K_LEFT:
-                if mainGame.snake.direction.x!=1:
-                 mainGame.snake.direction = Vector2(-1,0)
-            if event.key == pygame.K_RIGHT:
-                if mainGame.snake.direction.x!=-1:
-                 mainGame.snake.direction = Vector2(1,0)
+            if mainGame.game_over:
+                if event.key ==pygame.K_r:
+                    mainGame.reset()
+                elif event.key ==pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            else:
+                if event.key ==pygame.K_UP:
+                    if mainGame.snake.direction.y!=1:
+                       mainGame.snake.direction=Vector2(0,-1)
+                if event.key ==pygame.K_DOWN:
+                    if mainGame.snake.direction.y!=-1:
+                      mainGame.snake.direction =Vector2(0,1)
+                if event.key == pygame.K_LEFT:
+                    if mainGame.snake.direction.x!=1:
+                      mainGame.snake.direction = Vector2(-1,0)
+                if event.key == pygame.K_RIGHT:
+                    if mainGame.snake.direction.x!=-1:
+                      mainGame.snake.direction = Vector2(1,0)
      
     screen.blit(backgroud,(0,0))
     mainGame.draw()
