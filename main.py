@@ -2,6 +2,13 @@ import pygame , random
 import sys
 from pygame.math import Vector2
 
+
+def load_sound(path):
+    try:
+        return pygame.mixer.Sound(path)
+    except (pygame.error, FileNotFoundError) as error:
+        print(f"sound unavailable:{path}({error})")
+        return None
 class Snake:
     def __init__(self):
         self.body = [Vector2(5,10),Vector2(4,10),Vector2(3,10)]
@@ -115,8 +122,16 @@ class main:
     def __init__(self):
         self.snake = Snake()
         self.villain=villain()
+        self.score =0
+        self.game_over =False    
+        self.score_font=pygame.font.Font(None, 36)
+        self.message_font =pygame.font.Font(None, 32)
+        
+        self.eat=load_sound("sound.mp3")
         
     def update(self):
+        if self.game_over:
+            return
         self.snake.move()
         self.collision()
         self.check_fail()
@@ -124,9 +139,15 @@ class main:
     def draw(self):
         self.villain.draw_villain()
         self.snake.draw_snake()
+        score_text = self.score_font.render(f"SCORE:{self.score}",True,(225, 155,65))
+        screen.blit(score_text,(15,15))
+        
         
     def collision(self):
         if self.villain.pos== self.snake.body[0]:
+            self.score+=1
+            if self.eat:
+                self.eat.play()
             self.villain.randomzie()
             self.snake.add_block()
     def check_fail(self):
@@ -137,12 +158,11 @@ class main:
         if head.y<0 or head.y>= cell_number:
             self.gameover()
         for block in self.snake.body[1:]:
-            if block == self.snake.body[0]:
+            if block == head:
                 self.gameover()
                 
     def gameover(self):
-        pygame.quit()
-        sys.exit()
+        self.game_over=True
     
         
       
@@ -150,14 +170,12 @@ class main:
 pygame.init()
 cell_size=40
 cell_number=20
-
-
-clock = pygame.time.Clock()
 screen = pygame.display.set_mode((cell_size* cell_number , cell_number*cell_size))
 pygame.display.set_caption("SNAKE GAME LOL")
+backgroud = pygame.image.load("background.png").convert()
+backgroud = pygame.transform.scale(backgroud, (cell_size*cell_number, cell_size*cell_number))
+clock = pygame.time.Clock()
 surface = pygame.Surface((100, 200))
-surface.fill((0 , 0 , 225))
-
 mainGame = main()
 villain_img = pygame.image.load('villain.png').convert_alpha()
 
@@ -184,7 +202,7 @@ while True:
                 if mainGame.snake.direction.x!=-1:
                  mainGame.snake.direction = Vector2(1,0)
      
-    screen.fill((175, 215, 60))
+    screen.blit(backgroud,(0,0))
     mainGame.draw()
     pygame.display.update()
     clock.tick(60)
