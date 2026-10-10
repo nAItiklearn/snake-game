@@ -126,6 +126,7 @@ class main:
         self.game_over =False    
         self.score_font=pygame.font.Font(None, 36)
         self.message_font =pygame.font.Font(None, 32)
+        self.title_font =pygame.font.Font(None , 80)
         
         self.eat=load_sound("sound.mp3")
         
@@ -141,6 +142,19 @@ class main:
         self.snake.draw_snake()
         score_text = self.score_font.render(f"SCORE:{self.score}",True,(225, 155,65))
         screen.blit(score_text,(15,15))
+        if self.game_over:
+            overlay =pygame.Surface(screen.get_size(), pygame.SRCALPHA)
+            overlay.fill((5, 2, 15, 221))
+            screen.blit(overlay,(0,0))
+            title =self.title_font.render("DIEDD", True, (225, 0, 0))
+            final_score =self.message_font.render(f"TOTAL SCORE: {self.score}",True,(225, 210,0))
+            gameText =self.message_font.render("you are caught by the pumpkin king 67..", True, (200, 180, 0))
+            center_x =screen.get_width() //2
+            center_y = screen.get_height()//2
+            screen.blit(title, title.get_rect(center =(center_x,center_y-60)))
+            screen.blit(final_score, final_score.get_rect(center=(center_x, center_y)))
+            screen.blit(gameText, gameText.get_rect(center=(center_x,center_y+60)))
+        
         
         
     def collision(self):
@@ -177,7 +191,8 @@ backgroud = pygame.transform.scale(backgroud, (cell_size*cell_number, cell_size*
 clock = pygame.time.Clock()
 surface = pygame.Surface((100, 200))
 mainGame = main()
-villain_img = pygame.image.load('villain.png').convert_alpha()
+villain_img = pygame.image.load('image.png').convert_alpha()
+villain_img =pygame.transform.scale(villain_img,(40,40))
 
 SCREENUPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREENUPDATE, 150)
