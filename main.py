@@ -29,7 +29,20 @@ class Fruit:
     def draw_fruit(self):
         fruit_rect =pygame.Rect(int(self.pos.x*cell_size),int(self.pos.y*cell_size),cell_size,cell_size)
         pygame.draw.rect(screen, (120, 165, 114) , fruit_rect)
+      
+class main:
+    def __init__(self):
+        self.snake = Snake()
+        self.fruit =Fruit()
         
+    def update(self):
+        self.snake.move()
+    
+    def draw(self):
+        self.fruit.draw_fruit()
+        self.snake.draw_snake()
+    
+      
        
 pygame.init()
 cell_size=40
@@ -41,8 +54,9 @@ screen = pygame.display.set_mode((cell_size* cell_number , cell_number*cell_size
 pygame.display.set_caption("SNAKE GAME LOL")
 surface = pygame.Surface((100, 200))
 surface.fill((0 , 0 , 225))
-fruit=Fruit()
-snake =Snake()
+
+mainGame = main()
+
 
 SCREENUPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREENUPDATE, 150)
@@ -52,20 +66,18 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
         if event.type ==SCREENUPDATE:
-            snake.move()
+            mainGame.snake.move()
         if event.type ==pygame.KEYDOWN:
             if event.key ==pygame.K_UP:
-                snake.direction=Vector2(0,-1)
+                mainGame.snake.direction=Vector2(0,-1)
             if event.key ==pygame.K_DOWN:
-                snake.direction =Vector2(0,1)
+                mainGame.snake.direction =Vector2(0,1)
             if event.key == pygame.K_LEFT:
-                snake.direction = Vector2(-1,0)
+                mainGame.snake.direction = Vector2(-1,0)
             if event.key == pygame.K_RIGHT:
-                snake.direction = Vector2(1,0)
+                mainGame.snake.direction = Vector2(1,0)
      
     screen.fill((175, 215, 60))
-    # screen.blit(surface, rect1)
-    fruit.draw_fruit()
-    snake.draw_snake()
+    mainGame.draw()
     pygame.display.update()
     clock.tick(60)
