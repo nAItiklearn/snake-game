@@ -4,24 +4,91 @@ from pygame.math import Vector2
 
 class Snake:
     def __init__(self):
-        self.body=[Vector2(5,10), Vector2(4,10), Vector2(3,10)]
-        self.newBlock=False
+        self.body = [Vector2(5,10),Vector2(4,10),Vector2(3,10)]
         self.direction = Vector2(1,0)
+        self.new_block = False
+
+        self.head_up = pygame.image.load('snake/head_up.png').convert_alpha()
+        self.head_down = pygame. image.load('snake/head_down.png').convert_alpha()
+        self.head_right = pygame.image.load('snake/head_right.png').convert_alpha()
+        self.head_left = pygame. image. load('snake/head_left.png').convert_alpha()
+
+        self.tail_up = pygame.image.load('snake/tail_up.png').convert_alpha()
+        self.tail_down = pygame.image.load('snake/tail_down.png').convert_alpha()
+        self.tail_right = pygame.image.load('snake/tail_right.png').convert_alpha()
+        self.tail_left = pygame. image. load('snake/tail_left.png').convert_alpha()
+
+        self.body_vertical = pygame. image. load('snake/body_vertical.png') .convert_alpha()
+        self.body_horizontal = pygame.image.load('snake/body_horizontal.png').convert_alpha()
+
+        self.body_tr= pygame. image. load('snake/body_tr.png'). convert_alpha()
+        self.body_tl = pygame.image.load('snake/body_tl.png').convert_alpha()
+        self.body_br= pygame.image.load('snake/body_br.png'). convert_alpha()
+        self.body_bl = pygame.image.load('snake/body_bl.png').convert_alpha()
         
     def draw_snake(self):
-        for block in self.body:
-            x_pos = int(block.x*cell_size)
-            y_pos = int(block.y*cell_size)
+        for index, block in enumerate(self.body):
+            #for positioning
+            x_pos = int(block.x* cell_size)
+            y_pos =int(block.y *cell_size)
+            blockRect =pygame.Rect(x_pos, y_pos, cell_size, cell_size)
             
-            block_rect= pygame.Rect(x_pos, y_pos, cell_size, cell_size)
-            pygame.draw.rect(screen,(50,100, 50),block_rect)
-    
+            #2. what direction is the face heading 
+            if index==0:
+                if self.direction == Vector2(1,0):
+                    block_image = self.head_right
+                elif self.direction==Vector2(-1,0):
+                    block_image =self.head_left
+                elif self.direction ==Vector2(0,-1):
+                    block_image= self.head_up
+                elif self.direction ==Vector2(0,1):
+                    block_image=self.head_down
+            elif index == len(self.body)-1:
+                tailR = self.body[-2] -self.body[-1]
+                if tailR == Vector2(1,0):
+                    block_image = self.tail_left
+                elif tailR == Vector2(-1,0):
+                    block_image = self.tail_right
+                elif tailR ==Vector2(0,1):
+                    block_image =self.tail_up
+                else:
+                    block_image = self.tail_down
+                    
+           
+            else:
+                head_side = self.body[index - 1] - block
+                tail_side = self.body[index + 1] - block
+
+                # Straight body segments
+                if head_side.x == tail_side.x:
+                    block_image = self.body_vertical
+
+                elif head_side.y == tail_side.y:
+                    block_image = self.body_horizontal
+
+                # Corner body segments
+                else:
+                    if head_side.x == 1 or tail_side.x == 1:
+                        if head_side.y == -1 or tail_side.y == -1:
+                            block_image = self.body_tr
+                        else:
+                            block_image = self.body_br
+                    else:
+                        if head_side.y == -1 or tail_side.y == -1:
+                            block_image = self.body_tl
+                        else:
+                            block_image = self.body_bl
+
+            screen.blit(block_image, blockRect)
+
+                
+                             
     def move(self):
-        if self.newBlock== True:
+        if self.new_block== True:
             body_copy = self.body[:]
             body_copy.insert(0, self.body[0]+ self.direction)
             self.body =body_copy[:]
-            self.newBlock=False
+            self.new_block=False    
         else:
             body_copy = self.body[:-1] #copy the whole body except face
             body_copy.insert(0, self.body[0]+ self.direction)
@@ -30,7 +97,7 @@ class Snake:
     
         
     def add_block(self):
-        self.newBlock= True
+        self.new_block= True
         
 class villain:
     def __init__(self):
