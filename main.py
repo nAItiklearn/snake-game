@@ -5,6 +5,7 @@ from pygame.math import Vector2
 class Snake:
     def __init__(self):
         self.body=[Vector2(5,10), Vector2(6,10), Vector2(7,10)]
+        self.newBlock=False
         self.direction = Vector2(1,0)
         
     def draw_snake(self):
@@ -16,9 +17,20 @@ class Snake:
             pygame.draw.rect(screen,(50,100, 50),block_rect)
     
     def move(self):
-        body_copy = self.body[:-1] #copy the whole body except face
-        body_copy.insert(0, self.body[0]+ self.direction)
-        self.body =body_copy
+        if self.newBlock== True:
+            body_copy = self.body[:]
+            body_copy.insert(0, self.body[0]+ self.direction)
+            self.body =body_copy[:]
+            self.newBlock=False
+        else:
+            body_copy = self.body[:-1] #copy the whole body except face
+            body_copy.insert(0, self.body[0]+ self.direction)
+            self.body =body_copy[:]
+    
+    
+        
+    def add_block(self):
+        self.newBlock= True
         
 class Fruit:
     def __init__(self):
@@ -48,6 +60,7 @@ class main:
     def collision(self):
         if self.fruit.pos== self.snake.body[0]:
             self.fruit.randomzie()
+            self.snake.add_block()
     
       
        
