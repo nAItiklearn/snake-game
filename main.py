@@ -129,6 +129,16 @@ class main:
         self.title_font =pygame.font.Font(None , 80)
         
         self.eat=load_sound("sound.mp3")
+    
+    def reset(self):
+        self.snake =Snake()
+        self.villain=villain()
+        while self.villain.pos in self.snake.body:
+            self.villain.randomzie()
+        
+        self.score=0
+        self.game_over=False 
+        
         
     def update(self):
         if self.game_over:
@@ -149,11 +159,13 @@ class main:
             title =self.title_font.render("DIEDD", True, (225, 0, 0))
             final_score =self.message_font.render(f"TOTAL SCORE: {self.score}",True,(225, 210,0))
             gameText =self.message_font.render("you are caught by the pumpkin king 67..", True, (200, 180, 0))
+            replayText = self.message_font.render("PRESS R TO REPLAY , esc TO QUET", True, (225, 155,65))
             center_x =screen.get_width() //2
             center_y = screen.get_height()//2
             screen.blit(title, title.get_rect(center =(center_x,center_y-60)))
             screen.blit(final_score, final_score.get_rect(center=(center_x, center_y)))
             screen.blit(gameText, gameText.get_rect(center=(center_x,center_y+60)))
+            screen.blit(replayText, replayText.get_rect(center= (center_x, center_y+100)))
         
         
         
