@@ -128,7 +128,7 @@ class main:
         self.message_font =pygame.font.Font(None, 32)
         self.title_font =pygame.font.Font(None , 80)
         
-        self.eat=load_sound("sound.ogg")
+        self.eat=load_sound("crunch.wav")
     
     def reset(self):
         self.snake =Snake()
