@@ -1,6 +1,10 @@
 # PUMPKILL KILLER SNAKE 
 Hii ! , this is a halloween themed snake game built using Pygame. Collect pumpkins , grow longer , avoid collisions and se how high you can score. 
 
+<img width="995" height="1035" alt="image" src="https://github.com/user-attachments/assets/b70f81d2-a44e-48fb-850b-c89c9b918f34" />
+
+<img width="985" height="950" alt="image" src="https://github.com/user-attachments/assets/7e7c7f84-265a-4392-8c12-0780d68ddf3c" />
+
 ## how to play
 - control the snake to collect pumpkins to inc size 
 -avoid collisions
