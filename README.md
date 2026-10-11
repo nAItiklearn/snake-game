@@ -6,13 +6,10 @@ Hii ! , this is a halloween themed snake game built using Pygame. Collect pumpki
 <img width="985" height="950" alt="image" src="https://github.com/user-attachments/assets/7e7c7f84-265a-4392-8c12-0780d68ddf3c" />
 
 ## how to play
-- control the snake to collect pumpkins to inc size 
--avoid collisions
+control the snake to collect pumpkins to inc size and avoid collisions
 
 ## Controls 
-- Arrow keys - Move the snake 
-- esc - quiet the game
-- R - to replay
+Use Arrow keys to Move the snake , esc to quiet the game R to to replay
 
 ## why I MADE this
 So I'm currently learning about Pygame library and thought The classic snake game would be a great game to strong my basics of collisions , text rendering , 2dvector , etc.
@@ -64,9 +61,7 @@ python -m pip install pygame
 python main.py
 ```
 ### future updates !!
---Changing the snake to a ghost
---making a more better foggy atmosphere
---improve game experience
+Changing the snake to a ghost, making a more better foggy atmosphere, improve game experience
 
 
 **made by naitikkk :)**
