@@ -14,6 +14,25 @@ Hii ! , this is a halloween themed snake game built using Pygame. Collect pumpki
 - esc - quiet the game
 - R - to replay
 
+## why I MADE this
+So I'm currently learning about Pygame library and thought The classic snake game would be a great game to strong my basics of collisions , text rendering , 2dvector , etc.
+I made this for Hack Club 3am YSWS !!
+
+## how I made this ?
+The whole game is made from Python and Pygame library
+
+Game loop- the whole game runs by a while loop, continuous updates the game state, inputs..
+
+Snake environment- The snake size increases as he eats the pumpkins, I faced difficulty to make controls for each part of the snake, but it was fun
+
+game stats- as soon you eat a pumpkin , the score increases by +1
+
+
+### Challenges
+
+As mentioned , snake movements was the main difficult part in the whole game :)
+
+
 ## run locally
 **requirements**
 Python 3.10 or newer
